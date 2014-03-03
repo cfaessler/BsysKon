@@ -1,5 +1,5 @@
 all:
-	gcc Aufgabe03.c -o Aufgabe03
+	gcc Aufgabe03.c -o Aufgabe03.out
 
 clean:
-	rm -rf *o Aufgabe03 
+	rm -rf *o *.out 
