@@ -45,14 +45,20 @@ int main(){
         return 1;
     }
 
-
-    printf("[Server]: %i bytes received\n", bytes_received);
+    printf("[Server]: %i bytes received from pipe\n", bytes_received);
     
+    for(int i=0; i<10; ++i){
+        send_byte(buf[i]);
+    }
+
+    printf("[Server]: sent 10 bytes to serial device\n");
+
     char serial_rx_buffer[10];
     for(int i=0; i<10; ++i){
-        while(!is_byte_pending()){}
-            serial_rx_buffer[i] = receive_byte();
+        serial_rx_buffer[i] = receive_byte();
     }
+
+    printf("[Server]: received 10 bytes from serial device\n");
 
     int bytes_written = write(tx_fd, serial_rx_buffer, 10);
     if(bytes_written <= 0){
@@ -60,7 +66,7 @@ int main(){
         return 1;
     }
 
-    printf("[Server]: %i bytes written\n", bytes_written);
+    printf("[Server]: %i bytes written to pipe\n", bytes_written);
     sleep(2);
     close(tx_fd);
     close(rx_fd);
